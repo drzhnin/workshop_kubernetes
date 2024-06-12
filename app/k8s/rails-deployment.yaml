@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-rails-app # Имя деплоймента.
+spec:
+  replicas: 4 # Количество реплик (подов), которые будут запущены.
+  selector:
+    matchLabels:
+      app: demo-rails-app # Метка, используемая для выбора подов, которые будут управляться этим деплойментом.
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+       maxSurge: 25%
+       maxUnavailable: 25%
+  template:
+    metadata:
+      labels:
+        app: demo-rails-app # Метка, присваиваемая каждому создаваемому поду.
+    spec:
+      containers:
+        - name: app-container # Имя контейнера в поде
+          image: ${IMAGE_NAME} # ${IMAGE_NAME}
+          ports:
+            - containerPort: 3000
+          env:
+            - name: RAILS_MASTER_KEY
+              value: "9e1a6f517ab09bde0a68034cf7e3d4c2"
+          resources:
+            requests:
+              cpu: "200m"
+              memory: "200Mi"

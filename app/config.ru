@@ -1,7 +1,6 @@
-require 'rack'
+# This file is used by Rack-based servers to start the application.
 
-require_relative "app"
+require_relative "config/environment"
 
-use Rack::CommonLogger
-
-run App.new
+run Rails.application
+Rails.application.load_server

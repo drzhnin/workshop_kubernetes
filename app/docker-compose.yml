@@ -1,6 +1,7 @@
 services:
   app:
     build: .
+    environment:
+      - RAILS_MASTER_KEY=9e1a6f517ab09bde0a68034cf7e3d4c2
     ports:
-      - "9292:9292"
-    command: bundle exec rackup --host 0.0.0.0
+      - "3000:3000"
